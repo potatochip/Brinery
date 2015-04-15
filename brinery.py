@@ -44,12 +44,17 @@ def debrine(url, filename="page_data.pkl"):
     pickledict = grab_pickle(filename)
     return pickledict[url]
 
-def single_pickle(url, filename="page_data.pkl"):
+def single_pickle(url=None, filename="page_data.pkl"):
     '''
     add a single pickle to try and repair sour pickles
     '''
+    if not url: url = input("sour url: ")
     temp_dict = {}
-
+    try:
+        page = urllib2.urlopen(url).read()
+        temp_dict[url] = page
+    except:
+        print("Still sour!")
     dump_pickle(temp_dict, filename)
 
 def brine_time(linklist, filename="page_data.pkl", maxsleep=None, cap=None):
