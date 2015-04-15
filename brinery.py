@@ -48,14 +48,16 @@ def single_pickle(url=None, filename="page_data.pkl"):
     '''
     add a single pickle to try and repair sour pickles
     '''
-    if not url: url = input("sour url: ")
-    temp_dict = {}
+    if not url: url = str(input("sour url: "))
+    temp_dict = grab_pickle(filename)
     try:
         page = urllib2.urlopen(url).read()
         temp_dict[url] = page
+        dump_pickle(temp_dict, filename)
+        print("Cool!")
     except:
         print("Still sour!")
-    dump_pickle(temp_dict, filename)
+        #except not working for 'http://www.boxofficemojo.com/movies/?id=elizabeth\xa0.htm'
 
 def brine_time(linklist, filename="page_data.pkl", maxsleep=None, cap=None):
     '''
