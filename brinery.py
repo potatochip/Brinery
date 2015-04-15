@@ -44,6 +44,14 @@ def debrine(url, filename="page_data.pkl"):
     pickledict = grab_pickle(filename)
     return pickledict[url]
 
+def single_pickle(url, filename="page_data.pkl"):
+    '''
+    add a single pickle to try and repair sour pickles
+    '''
+    temp_dict = {}
+
+    dump_pickle(temp_dict, filename)
+
 def brine_time(linklist, filename="page_data.pkl", maxsleep=None, cap=None):
     '''
     pickle ALL THE PAGES. set a maximum amount of seconds to sleep if the site you're pickeling is particularly sour.
@@ -61,6 +69,7 @@ def brine_time(linklist, filename="page_data.pkl", maxsleep=None, cap=None):
         except Exception as e:
             print("Sour Pickle! Tastes like a" + str(e))
             sour_pickle_jar.append(url)
+            temp_dict.update({url: e}) # comment this out if you don't want pages with download errors included in the dictionary at all
     dump_pickle(temp_dict, filename)
     if sour_pickle_jar:
         with open("sour_pickle_jar.txt", "wb") as f:
