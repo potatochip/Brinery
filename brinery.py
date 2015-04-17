@@ -23,17 +23,11 @@ import urllib2
 from random import randint
 from time import sleep
 
-def dump_pickle(x, filename="page_data.pkl"):
-    '''
-    saves a dictionary of urlopen objects with keys as the url
-    '''
+def dump_pickle(x, filename):
     with open(filename, "wb") as f:
         pickle.dump(x, f)
 
-def grab_pickle(filename="page_data.pkl"):
-    '''
-    retrieves a dictionary of urlopen objects with keys as the url
-    '''
+def grab_pickle(filename):
     with open(filename, "rb") as f:
         return pickle.load(f)
 
@@ -46,15 +40,15 @@ def debrine(url, filename="page_data.pkl"):
 
 def single_pickle(url=None, filename="page_data.pkl"):
     '''
-    add a single pickle to try and repair sour pickles
+    add a single pickle to the brined mass to try and repair sour pickles
     '''
-    if not url: url = str(input("sour url: "))
+    if not url: url = input("sour url (in quotes): ")
     temp_dict = grab_pickle(filename)
     try:
         page = urllib2.urlopen(url).read()
         temp_dict[url] = page
         dump_pickle(temp_dict, filename)
-        print("Cool!")
+        print("Cool as a cucumber!")
     except:
         print("Still sour!")
         #except not working for 'http://www.boxofficemojo.com/movies/?id=elizabeth\xa0.htm'
@@ -63,6 +57,7 @@ def brine_time(linklist, filename="page_data.pkl", maxsleep=None, cap=None):
     '''
     pickle ALL THE PAGES. set a maximum amount of seconds to sleep if the site you're pickeling is particularly sour.
     returns a list of sour pickle pages that did not get downloaded. cap to limit the amount of pages pickled.
+    saves a dictionary of urlopen objects with the urls as the keys
     '''
     temp_dict = {}
     sour_pickle_jar = []
