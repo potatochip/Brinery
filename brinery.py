@@ -53,7 +53,7 @@ def single_pickle(url=None, filename="page_data.pkl"):
         print("Still sour!")
         #except not working for 'http://www.boxofficemojo.com/movies/?id=elizabeth\xa0.htm'
 
-def brine_time(linklist, filename="page_data.pkl", maxsleep=None, cap=None):
+def brine_time(linklist, filename, maxsleep=None, cap=None):
     '''
     pickle ALL THE PAGES. set a maximum amount of seconds to sleep if the site you're pickeling is particularly sour.
     returns a list of sour pickle pages that did not get downloaded. cap to limit the amount of pages pickled.
