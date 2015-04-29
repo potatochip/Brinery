@@ -42,7 +42,7 @@ def single_pickle(filename, url=None):
     '''
     add a single pickle to the brined mass to try and repair sour pickles
     '''
-    if not url: url = input("sour url (in quotes): ")
+    if not url: url = raw_input("sour url: ")
     temp_dict = grab_pickle(filename)
     try:
         page = urllib2.urlopen(url).read()
@@ -74,7 +74,7 @@ def brine_time(linklist, filename, maxsleep=None, cap=None):
             #temp_dict.update({url: str(e)}) uncomment this if you want pages with download errors included in the pickle
     dump_pickle(temp_dict, filename)
     if sour_pickle_jar:
-        with open("sour_pickle_jar.txt", "wb") as f:
+        with open(filename+".sour_pickle_jar.txt", "wb") as f:
             for item in sour_pickle_jar:
                 f.write(item)
                 f.write("\n")
